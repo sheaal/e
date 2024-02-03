@@ -1,0 +1,24 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}<title>Профиль</title>{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h2>Профиль пользователя: {{user.username}}</h2>
+    <p>Фото: <img class="img" src="/media/{{user.ava}}"></p>
+    <h3>Заказы пользователя:</h3>
+    {% if product_list %}
+      {% for product in product_list %}
+        <p>Название: {{product.product.pr_name}}</p>
+        <p>Описание: {{product.product.description_pr}}</p>
+        <p>Фото: <img class="img" src="/media/{{product.product.pr_img}}"></p>
+        {% if not forloop.last %}<p>--------------------------------------------------------------------------------</p>{% endif %}
+      {% endfor %}
+    {% else %}
+      <p>У пользователя ещё нету заказов!</p>
+    {% endif %}
+  {% else %}
+    <p>Вы не вошли в свой аккаунт!</p>
+  {% endif %}
+
+{% endblock %}

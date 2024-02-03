@@ -1,0 +1,26 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+{% if product_list %}
+<h2>Последние 5 объявлений</h2>
+<form class="form form-search" method="get" action="{% url 'app:search' %}">
+    <input type="search" placeholder="Поиск" name="query">
+    <button class="table-input" type="submit">Поиск</button>
+</form>
+<ul>
+    {% for product in product_list %}
+    <div class="card" style="width: 18rem;">
+        <img class="img" src="/media/{{product.pr_img}}">
+        <div class="card-body">
+          <a href="{% url 'app:product_detail' product.id %}">Название: {{ product.pr_name }}</a>
+          <p>Описание: {{ product.description_pr }} </p>
+        </div>
+      </div>
+    {% endfor %}
+</ul>
+{% else %}
+<p>
+    Нет услуг/товаров
+</p>
+{% endif %}
+{% endblock %}
+

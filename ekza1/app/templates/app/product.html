@@ -1,0 +1,20 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}<title>Товары/услуги</title>{% endblock %}
+<form class="form form-search" method="get" action="{% url 'app:search' %}">
+    <input type="search" placeholder="Поиск" name="query">
+    <button class="table-input" type="submit">Поиск</button>
+</form>
+{% block content %}
+    <h1>Товары/услуги</h1>
+    <h3>Наши товары:</h3>
+    {% for product in product_list %}
+        <div>
+            <p>Название: {{product.pr_name}}</p>
+            <p>Описание: {{product.description_pr}}</p>
+            <p>Фото: <img class="img" src="/media/{{product.pr_img}}"></p>
+            <p><a href="{% url 'app:product_detail' product.id %}">Перейти на страницу товара/услуги</a></p>
+        </div>
+        {% if not forloop.last %}<p>-----------------------------------------------------------</p>{% endif %}
+    {% endfor %}
+{% endblock %}?
